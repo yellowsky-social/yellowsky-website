@@ -27,7 +27,7 @@ export default function Details() {
                 <a className="flex bg-black p-5 text-yellow-400 text-center border-8 border-yellow-400 hover:text-black hover:bg-yellow-400 hover:border-yellow-400"
                    href="https://ysky.app"
                    target="_blank"
-                ><BsFillArrowUpRightSquareFill className="pr-3"/>JOIN NOW</a>
+                ><BsFillArrowUpRightSquareFill className="pr-3 m-auto"/>JOIN NOW</a>
             </div>
         </div>
     )
