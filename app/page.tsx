@@ -1,10 +1,9 @@
 "use client";
-import React, {useState} from "react";
+import React from "react";
 import Content from "@/app/content";
 import Footer from "@/app/footer";
 import Details from "@/app/details";
 import Header from "@/app/header";
-import {Dialog} from "@headlessui/react";
 
 const color = '#fddf19';
 export default function Home() {
@@ -24,7 +23,7 @@ export default function Home() {
 
             <Content/>
 
-            <Header />
+            <Header/>
 
             <Details/>
 

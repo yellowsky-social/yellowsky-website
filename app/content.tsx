@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import {FaHourglassStart} from "react-icons/all";
+import {FaHourglassStart} from "react-icons/fa";
 import Image from "next/image";
 
 export default function Content() {

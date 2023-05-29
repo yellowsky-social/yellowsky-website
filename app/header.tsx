@@ -1,7 +1,5 @@
 "use client";
-import React, {useState} from "react";
-import {BsBalloonHeartFill} from "react-icons/all";
-import {Dialog} from "@headlessui/react";
+import React from "react";
 import Support from "@/app/support";
 
 export default function Header() {
@@ -15,7 +13,7 @@ export default function Header() {
         <div
             className="fixed top-0 pt-4 pr-4 min-w-max w-full ">
             <div className="relative bottom-0 text-4xl gap-4 flex-nowrap text-right">
-                <Support />
+                <Support/>
             </div>
         </div>
     )

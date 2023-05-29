@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import {BsFillArrowUpRightSquareFill} from "react-icons/all";
+import {BsFillArrowUpRightSquareFill} from "react-icons/bs";
 
 export default function Details() {
 

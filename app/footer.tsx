@@ -1,5 +1,5 @@
 import React from "react";
-import {BsGithub, BsTelegram} from "react-icons/all";
+import {BsGithub, BsTelegram} from "react-icons/bs";
 
 export default function Footer() {
     return (
@@ -30,18 +30,16 @@ export default function Footer() {
                     className="relative flex-col m-auto font-black text-amber-50 hover:text-blue-300 pointer-events-auto"
                     href="https://github.com/yellowsky-social"
                     target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    <p className="text-xl"><BsGithub className="" /></p>
+                    rel="noopener noreferrer">
+                    <p className="text-xl"><BsGithub/></p>
                 </a>
 
                 <a
                     className="relative flex-auto m-auto font-black text-amber-50 hover:text-blue-300 pointer-events-auto"
                     href="https://t.me/yskyapp"
                     target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    <p className="text-xl"><BsTelegram className="" /></p>
+                    rel="noopener noreferrer">
+                    <p className="text-xl"><BsTelegram/></p>
                 </a>
 
                 {
