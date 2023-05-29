@@ -77,7 +77,7 @@ export default function Support() {
                                             <br />
                                             If anyone would like to support this, not yet existing, project, I will be eternally grateful if one would share me an invitation.
                                             <br />
-                                            <p className="flex">Feel free to send me a code to admin<MdOutlineAlternateEmail/>ysky.app</p>
+                                            <p className="flex">Feel free to send me a code to invite<MdOutlineAlternateEmail/>ysky.app</p>
                                             <br />
                                             All other people, I would like to ask to have a visit from time to time to see when this project starts.
                                         </p>
