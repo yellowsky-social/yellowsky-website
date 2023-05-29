@@ -1,4 +1,5 @@
 import React from "react";
+import {BsGithub, BsTelegram} from "react-icons/all";
 
 export default function Footer() {
     return (
@@ -7,7 +8,7 @@ export default function Footer() {
          */
         <div
             className="fixed bottom-0 min-w-max p-4 bg-black w-full shadow-[0_35px_50px_100px_rgba(0,0,0,1.0)]">
-            <div className="relative bottom-0 text-lg lg:text-xl gap-4 flex-nowrap">
+            <div className="relative bottom-0 flex text-lg lg:text-xl gap-4 flex-nowrap">
                 <a
                     className="relative flex gap-2 w-fit font-black text-amber-50 hover:text-blue-300 pointer-events-auto"
                     href="https://atproto.com"
@@ -23,6 +24,24 @@ export default function Footer() {
                         />
                         <p className="">PROTO</p>
                     </div>
+                </a>
+
+                <a
+                    className="relative flex-col m-auto font-black text-amber-50 hover:text-blue-300 pointer-events-auto"
+                    href="https://github.com/yellowsky-social"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    <p className="text-xl"><BsGithub className="" /></p>
+                </a>
+
+                <a
+                    className="relative flex-auto m-auto font-black text-amber-50 hover:text-blue-300 pointer-events-auto"
+                    href="https://t.me/yskyapp"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    <p className="text-xl"><BsTelegram className="" /></p>
                 </a>
 
                 {

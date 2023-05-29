@@ -6,7 +6,7 @@ import Image from "next/image";
 export default function Content() {
 
     return (
-        <div className="relative place-items-center mx-auto max-w-screen h-screen p-1 md:pl-4 sm:pr-4">
+        <div className="relative place-items-center mx-auto max-w-screen h-screen pt-12 p-1 md:pl-4 sm:pr-4">
             <div className="max-w-prose w-fit mx-auto">
                 <Image
                     className="relative mx-auto dark:drop-shadow-[0_0_0.3rem_#ffffff70 w-full sm:mt-32 lg:mt-8"
