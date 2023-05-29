@@ -63,7 +63,7 @@ export default function Support() {
                                             <br />
                                             Currently working on my thesis and I will shortly graduate from university.
                                             <br />
-                                            Recently I've discovered Bluesky and especially the AT Protocol and I was extremely impressed and curious about the future. Such a platform and standard, I was looking for a long time, to build software for.
+                                            Recently I`&apos;ve discovered Bluesky and especially the AT Protocol and I was extremely impressed and curious about the future. Such a platform and standard, I was looking for a long time, to build software for.
                                             <br />
                                             The last years I had various ideas for social platforms and devised around that ideas. I also had started a small blockchain project to learn more about that technology and I am fascinated by an open future without such centralized power.
                                             Now I really would like to use the AT Protocol to build a project around that.
@@ -73,7 +73,7 @@ export default function Support() {
                                             Right now, I cannot tell what future brings but you might enjoy it and maybe some of you like to follow me and my projects over the next years.
                                             <br />
                                             <br />
-                                            Sadly it is still invitation only and as it seems I'm kind of late to the pary I guess I will need to wait a long time to get my hands on the blue sky.
+                                            Sadly it is still invitation only and as it seems I`&apos; kind of late to the pary I guess I will need to wait a long time to get my hands on the blue sky.
                                             <br />
                                             If anyone would like to support this, not yet existing, project, I will be eternally grateful if one would share me an invitation.
                                             <br />
