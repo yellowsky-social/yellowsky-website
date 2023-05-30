@@ -18,7 +18,7 @@ export default function RootLayout({
     return (
         <html lang="en">
         <head>
-            <title>Yellow Sky</title>
+            <title>Yellow Sky - next generation platform</title>
             <Favicon/>
         </head>
         <body className={inter.className}>{children}</body>
