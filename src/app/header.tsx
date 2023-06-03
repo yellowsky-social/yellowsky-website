@@ -1,23 +1,55 @@
 "use client";
 import React from "react";
+import Support from "@/app/support";
 
 export default function Header() {
-
+    // bg-teal-500 p-6
     return (
-        /*
-        items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none
-        BsBalloonHeartFill
-         */
-        // bg-black shadow-[0_10px_10px_10px_rgba(0,0,0,1.0)]
-        <div
-            className="fixed top-0 pt-4 pr-4 min-w-max w-full ">
-            <div className="relative bottom-0 text-4xl gap-4 flex-nowrap text-right">
-                {
-                    /*
-                        <Support/>
-                     */
-                }
+        <nav
+            className="sticky top-0 flex w-full items-center justify-between flex-wrap bg-yellow-400 px-6 py-2 border-dashed border-b-1 border-indigo-600 z-10">
+            <div className="flex items-center flex-shrink-0 text-white mr-6">
+                <img
+                    className="relative my-auto mr-4 h-12"
+                    src="/ysky.png"
+                    alt="ysky Logo"
+                />
+                <span className="text-3xl font-black text-black tracking-tight">YellowSky</span>
             </div>
-        </div>
+            {
+                /*
+    <div className="block lg:hidden">
+        <button
+            className="flex items-center px-3 py-2 border rounded text-teal-200 border-teal-400 hover:text-white hover:border-white">
+            <svg className="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                <title>Menu</title>
+                <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/>
+            </svg>
+        </button>
+    </div>
+    */}
+            <div className="w-auto flex items-center">
+                <div className="text-sm lg:flex-grow">
+                    {
+                        /*
+                        <a href="#responsive-header"
+                       className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
+                        Docs
+                    </a>
+                    <a href="#responsive-header"
+                       className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
+                        Examples
+                    </a>
+                    <a href="#responsive-header"
+                       className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white">
+                        Blog
+                    </a>
+                         */
+                    }
+                </div>
+                <div>
+                    <Support/>
+                </div>
+            </div>
+        </nav>
     )
 }
