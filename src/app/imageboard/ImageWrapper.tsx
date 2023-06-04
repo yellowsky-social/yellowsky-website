@@ -7,7 +7,7 @@ export default function ImageWrapper(props: { post: BlueskyPost, isSelected: boo
     const post = props.post;
     return (
         <>
-            <div className="group relative col-span flex bg-yellow-400 z-0"
+            <div className="group relative col-span flex bg-yellow-400 z-0 m-1"
                  style={{backgroundImage: post.postImage!.imageUrl}}>
                 <img
                     className="m-auto w-auto h-full"

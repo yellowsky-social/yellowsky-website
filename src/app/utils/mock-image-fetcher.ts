@@ -28,14 +28,14 @@ function handle(event: Event) {
 
 }
 
-function prepareBlueskyReply(from: string, text: string, imageUrl?: string): BlueskyPost {
+function prepareBlueskyReply(from: string, text: string, imageUrl?: string, comments?: BlueskyPost[]): BlueskyPost {
     const id = randomUUID();
     return {
         id: id,
         cid: id,
         senderHandle: from,
         when: "2023-06-03T12:40:20.860968",
-        comments: [],
+        comments: comments ? comments : [],
         liked: false,
         likes: 132,
         postString: text,
@@ -74,9 +74,9 @@ function randomUUID(): string {
 
 export async function fetchImages(): Promise<ImageBoardItem[]> {
     return [
-        prepareBoardItem("https://avatars.mds.yandex.net/i?id=9950d0fcff49dfe85650bd0578579ee512da2591-9182360-images-thumbs&n=13"),
+        prepareBoardItem("https://img.pr0gramm.com/2023/06/03/1084bb65dfacabad.jpg"),
         prepareBoardItem("https://avatars.mds.yandex.net/i?id=33a0b3d0e9ae60ded534d46ba21fad66cb3af64c-4322170-images-thumbs&n=13"),
-        prepareBoardItem("https://img.pr0gramm.com/2023/06/03/17606cb78673964a.jpg", "What do you think?", [prepareBlueskyReply("@tierone", "I don't get it. Please explain it to me"), prepareBlueskyReply("@joerns", "Hahahaha, this is hilarious", "https://img.pr0gramm.com/2023/06/03/1084bb65dfacabad.jpg"), prepareBlueskyReply("@joerns2", "Hihihihi, this is hilarious"), prepareBlueskyReply("@joerns3", "Muhahahaaa, this is hilarious")]),
+        prepareBoardItem("https://img.pr0gramm.com/2023/06/03/17606cb78673964a.jpg", "What do you think?", [prepareBlueskyReply("@tierone", "I don't get it. Please explain it to me"), prepareBlueskyReply("@joerns", "Hahahaha, this is hilarious. Hahahaha, this is hilarious. Hahahaha, this is hilarious. Hahahaha, this is hilarious. Hahahaha, this is hilarious. Hahahaha, this is hilarious. Hahahaha, this is hilarious. Hahahaha, this is hilarious. ", "https://img.pr0gramm.com/2023/06/03/1084bb65dfacabad.jpg", [prepareBlueskyReply("@tierone", "I don't get it. Please explain it to me"), prepareBlueskyReply("@joerns", "Hahahaha, this is hilarious", "https://img.pr0gramm.com/2023/06/03/1084bb65dfacabad.jpg"), prepareBlueskyReply("@joerns2", "Hihihihi, this is hilarious"), prepareBlueskyReply("@joerns3", "Muhahahaaa, this is hilarious")]), prepareBlueskyReply("@joerns2", "Hihihihi, this is hilarious"), prepareBlueskyReply("@joerns3", "Muhahahaaa, this is hilarious")]),
         prepareBoardItem("https://img.pr0gramm.com/2023/06/02/3c87e9b72f59f79d.jpg"),
         prepareBoardItem("https://img.pr0gramm.com/2023/06/02/e5d079ff2bb7f0a8.jpg"),
         prepareBoardItem("https://avatars.mds.yandex.net/i?id=3a4c1cdc58399dd072736ef9d2863b18d22130ba-6403119-images-thumbs&n=13"),
