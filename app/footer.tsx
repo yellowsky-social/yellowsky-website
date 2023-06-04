@@ -1,5 +1,6 @@
 import React from "react";
-import {BsGithub, BsTelegram} from "react-icons/bs";
+import {BsGithub, BsTelegram,} from "react-icons/bs";
+import {BiSquareRounded} from "react-icons/bi";
 
 export default function Footer() {
     return (
@@ -35,11 +36,19 @@ export default function Footer() {
                 </a>
 
                 <a
-                    className="relative flex-auto m-auto font-black text-amber-50 hover:text-blue-300 pointer-events-auto"
+                    className="relative flex-col m-auto font-black text-amber-50 hover:text-blue-300 pointer-events-auto"
                     href="https://t.me/yskyapp"
                     target="_blank"
                     rel="noopener noreferrer">
                     <p className="text-xl"><BsTelegram/></p>
+                </a>
+
+                <a
+                    className="relative flex-auto m-auto font-black text-amber-50 hover:text-blue-300 pointer-events-auto"
+                    href="https://bsky.app/profile/ysky.app"
+                    target="_blank"
+                    rel="noopener noreferrer">
+                    <p className="text-xl"><BiSquareRounded type="solid"/></p>
                 </a>
 
                 {
