@@ -1,13 +1,43 @@
 'use client';
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
+import LoginBox from '@/src/app/login-box';
 
-export default function Header() {
+type LogoHeaderState = {
+  isLoggedIn: boolean
+}
+
+export default function Header({ isLoggedIn }: LogoHeaderState) {
+  const [showLogin, toggleShowLogin] = useState(false);
+
+  const [isLoggedInState, toggleLogin] = useState(false);
+
+  const [isLoading, setLoading] = useState(false);
+
+  const handleLogin = (handle: string, password: string): boolean => {
+    console.log('Login ' + handle + ':' + password);
+
+    // toggleLogin(true);
+    setLoading(true);
+    toggleShowLogin(false);
+    return true;
+  };
+
+  const logout = () => {
+    toggleLogin(false);
+  };
+
   // bg-teal-500 p-6
   return (
     <nav
-      className='relative top-0 flex w-full items-center justify-between flex-wrap bg-yellow-400 px-6 py-2 border-dashed border-b-1 border-indigo-600 z-10'>
+      className='relative top-0 flex w-full items-center h-fit justify-between flex-wrap bg-yellow-400 px-6 py-2 border-dashed border-b-1 border-indigo-600 z-10'>
       <a className='flex items-center flex-shrink-0 text-white mr-6' href='/'>
+        <img
+          className='relative my-auto mr-4 h-12'
+          src='/ysky.png'
+          alt='ysky Logo'
+        />
+        <span className='text-3xl font-black text-black tracking-tight'>YellowSky</span>
       </a>
       {
         /*
@@ -27,33 +57,44 @@ export default function Header() {
              className='block mt-4 lg:inline-block lg:mt-0 hover:text-white mr-4 border-solid border-l-4 border-black pl-1 pr-3'>
             About
           </a>
-
-          <Link href='/imageboard' className='block mt-4 lg:inline-block lg:mt-0 hover:text-white mr-4 border-black'>
-            <p className='border-solid border-l-4 pl-1 pr-3'>
-              Imageboard
-            </p>
-          </Link>
-          {
-            /*
-            <a href="#responsive-header"
-           className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
-            Docs
-        </a>
-        <a href="#responsive-header"
-           className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
-            Examples
-        </a>
-        <a href="#responsive-header"
-           className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white">
-            Blog
-        </a>
-             */
-          }
         </div>
+
+        {isLoggedInState ?
+          <>
+            <div className='text-sm lg:flex-grow'>
+              <Link href='/imageboard'
+                    className='block mt-4 lg:inline-block lg:mt-0 hover:text-white mr-4 border-solid border-l-4 border-black pl-1 pr-3'>
+                Imageboard
+              </Link>
+            </div>
+            <div className='text-sm lg:flex-grow'>
+              <p onClick={() => {
+                logout();
+              }}
+                 className='block mt-4 lg:inline-block lg:mt-0 hover:text-white mr-4 border-solid border-l-4 border-black pl-1 pr-3'>
+                Logout
+              </p>
+            </div>
+          </>
+          :
+          <div className='text-sm lg:flex-grow'>
+            <p onClick={() => {
+              toggleShowLogin(!showLogin);
+            }}
+               className='block mt-4 lg:inline-block lg:mt-0 hover:text-white border-solid border-l-4 border-black pl-1'>
+              Login
+            </p>
+          </div>
+        }
+
         <div>
 
         </div>
       </div>
+
+      {showLogin &&
+        <LoginBox login={handleLogin} isLoading={isLoading} />
+      }
     </nav>
   );
 }

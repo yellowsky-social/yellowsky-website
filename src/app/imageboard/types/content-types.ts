@@ -1,7 +1,6 @@
-export interface BoardImage {
-  imageUrl: string;
-  imageWidth: number;
-  imageHeight: number;
+export interface LoadedPostResult {
+  cursor?: string;
+  posts: BoardPost[];
 }
 
 export interface BoardPost {
@@ -9,7 +8,8 @@ export interface BoardPost {
   cid: string;
   senderHandle: string;
   when: string;
-  postImage?: BoardImage;
+  thumbImage?: string;
+  fullImage?: string;
   postString?: string;
   postUrl: string;
   likes: number;
