@@ -1,12 +1,12 @@
 'use client';
 import React from 'react';
-import About from '@/src/app/about/about';
+import ImageBoard from '@/src/app/imageboard/imageboard';
 
 const color = '#fddf19';
 export default function Page() {
 
   return (
-    <div className='w-full min-w-fit my-auto'>
+    <div className='w-full min-w-fit h-full bg-black'>
       {
         /*
         <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
@@ -18,8 +18,7 @@ export default function Page() {
          */
       }
 
-      <About />
-
+      <ImageBoard />
 
     </div>
   );

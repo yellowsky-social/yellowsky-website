@@ -9,8 +9,7 @@ export default function Page() {
     <div className='flex min-h-screen w-full min-w-fit pb-24'>
 
       <Content />
-
-
+      
     </div>
   );
 }
