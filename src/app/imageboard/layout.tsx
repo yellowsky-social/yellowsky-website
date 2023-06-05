@@ -1,6 +1,6 @@
 import { Inter } from 'next/font/google';
 import React from 'react';
-import Header from '@/src/app/header';
+import LogoHeader from '@/src/app/logo-header';
 
 const inter = Inter({ subsets: ['latin'] });
 export default function AboutLayout({
@@ -10,7 +10,7 @@ export default function AboutLayout({
 }) {
   return (
     <section className='flex-auto min-h-screen w-full min-w-fit bg-black'>
-      <Header />
+      <LogoHeader />
 
       {children}
     </section>

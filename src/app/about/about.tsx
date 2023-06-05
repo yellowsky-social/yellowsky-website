@@ -4,7 +4,7 @@ export default function About() {
 
   return (
     <div
-      className='min-w-full h-auto m-auto max-w-prose pl-8 pr-8 pt-8 bg-black'>
+      className='min-w-full m-auto max-w-prose pl-8 pr-8 bg-black mt-16'>
       <div className='m-auto h-full'>
         <div className='flex font-black lg:text-8xl text-6xl w-fit mx-auto'>
           <h1

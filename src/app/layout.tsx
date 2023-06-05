@@ -23,7 +23,7 @@ export default function RootLayout({
       <Favicon />
     </head>
     <body className={inter.className}>
-    <main className='bg-yellow-400 min-h-full'>
+    <main className='bg-yellow-400 min-h-full min-w-fit flex-auto'>
 
       {children}
 

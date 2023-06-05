@@ -1,5 +1,6 @@
 'use client';
 import React from 'react';
+import Link from 'next/link';
 
 export default function Header() {
   // bg-teal-500 p-6
@@ -7,12 +8,6 @@ export default function Header() {
     <nav
       className='relative top-0 flex w-full items-center justify-between flex-wrap bg-yellow-400 px-6 py-2 border-dashed border-b-1 border-indigo-600 z-10'>
       <a className='flex items-center flex-shrink-0 text-white mr-6' href='/'>
-        <img
-          className='relative my-auto mr-4 h-12'
-          src='/ysky.png'
-          alt='ysky Logo'
-        />
-        <span className='text-3xl font-black text-black tracking-tight'>YellowSky</span>
       </a>
       {
         /*
@@ -26,12 +21,18 @@ export default function Header() {
 </button>
 </div>
 */}
-      <div className='w-auto flex items-center text-black'>
+      <div className='w-auto flex items-center text-black font-black'>
         <div className='text-sm lg:flex-grow'>
           <a href='/about'
-             className='block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4'>
+             className='block mt-4 lg:inline-block lg:mt-0 hover:text-white mr-4 border-solid border-l-4 border-black pl-1 pr-3'>
             About
           </a>
+
+          <Link href='/imageboard' className='block mt-4 lg:inline-block lg:mt-0 hover:text-white mr-4 border-black'>
+            <p className='border-solid border-l-4 pl-1 pr-3'>
+              Imageboard
+            </p>
+          </Link>
           {
             /*
             <a href="#responsive-header"
