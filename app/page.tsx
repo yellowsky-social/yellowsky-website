@@ -1,9 +1,9 @@
 "use client";
 import React from "react";
-import Content from "@/src/app/content";
-import Footer from "@/src/app/footer";
-import Details from "@/src/app/details";
-import Header from "@/src/app/header";
+import Content from "@/app/content";
+import Footer from "@/app/footer";
+import Details from "@/app/details";
+import Header from "@/app/header";
 
 const color = '#fddf19';
 export default function Home() {
@@ -21,9 +21,10 @@ export default function Home() {
                  */
             }
 
+            <Content/>
+
             <Header/>
 
-            <Content/>
             <Details/>
 
             <Footer/>
