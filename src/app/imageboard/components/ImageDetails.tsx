@@ -21,8 +21,6 @@ export default function ImageDetails(props: { post: BoardPost, close: Function }
                 }} />
             );
           })}
-          {post.id}
-          {post.cid}
           {/* Initial Post box */}
           <PostBox className='text-2xl' post={post} isMain={true} />
         </div>
