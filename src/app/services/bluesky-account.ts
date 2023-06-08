@@ -1,19 +1,25 @@
-import { AtpSessionData, AtpSessionEvent, BskyAgent } from '@atproto/api';
+import { BskyAgent } from '@atproto/api';
 
 export const BLUESKY_ENDPOINT = 'https://bsky.social';
 
-async function loginBluesky(handle: string, password: string): Promise<any> {
-  const agent = new BskyAgent({
-    service: 'https://example.com',
-    persistSession: (evt: AtpSessionEvent, sess?: AtpSessionData) => {
-      // store the session-data for reuse
-    },
-  });
+export async function loginBluesky(handle: string, password: string): Promise<void> {
+  const agent = new BskyAgent({ service: BLUESKY_ENDPOINT });
   agent.setPersistSessionHandler((evt, session) => {
-    // Store session into storage
+    if (session) {
+      sessionStorage.setItem('_session', JSON.stringify(session));
+    }
   });
+  try {
+    await agent.login({ identifier: handle, password: password });
+  } catch (error) {
+    return Promise.reject(error + '');
+  }
+}
 
-  await agent.login({ identifier: 'alice@mail.com', password: 'hunter2' });
+export async function logoutBluesky() {
+  sessionStorage.removeItem('_session');
+}
 
-
+export function isLoggedIntoBluesky() {
+  return (!!sessionStorage.getItem('_session'));
 }

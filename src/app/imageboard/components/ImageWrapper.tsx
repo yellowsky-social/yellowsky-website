@@ -7,11 +7,10 @@ export default function ImageWrapper(props: { post: BoardPost, isSelected: boole
   const post = props.post;
   return (
     <>
-      <div className='group relative aspect-square col-span flex bg-yellow-400 z-0 m-1'
-           style={{ backgroundImage: post.postImage!.imageUrl }}>
+      <div className='group relative aspect-square col-span flex bg-yellow-400 z-0 m-1'>
         <img
-          className='w-fit h-full'
-          src={post.postImage!.imageUrl}
+          className='w-fit p-auto'
+          src={post.images[0].thumb}
           onClick={() => {
             props.select();
           }}

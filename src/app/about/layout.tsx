@@ -1,6 +1,5 @@
 import { Inter } from 'next/font/google';
 import React from 'react';
-import Header from '@/src/app/header';
 
 const inter = Inter({ subsets: ['latin'] });
 export default function AboutLayout({
@@ -10,9 +9,9 @@ export default function AboutLayout({
 }) {
   return (
     <section className='w-full min-w-fit bg-black'>
-      <Header />
 
       {children}
+
     </section>
   );
 }

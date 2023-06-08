@@ -1,64 +1,68 @@
-import { BoardPost, LoadedPostResult } from '@/src/app/imageboard/types/content-types';
-import { AtpSessionData, BskyAgent } from '@atproto/api';
-import * as AppBskyEmbedImages from '@atproto/api/src/client/types/app/bsky/embed/images';
-import { ViewRecord } from '@atproto/api/src/client/types/app/bsky/embed/record';
+'use client';
+import { BoardImage, BoardPost, LoadedPostResult } from '@/src/app/imageboard/types/content-types';
+import { AppBskyEmbedImages, AppBskyFeedPost, AtpSessionData, BskyAgent } from '@atproto/api';
 import { BLUESKY_ENDPOINT } from '@/src/app/services/bluesky-account';
 
 
-async function fetchTimelineImages(minImages: number, cursor: string | undefined): Promise<LoadedPostResult> {
-  const agent = new BskyAgent({ service: BLUESKY_ENDPOINT });
-  /*
-  await agent.resumeSession({
-    handle: '',
-    did: '',
-    accessJwt: '',
-    refreshJwt: '',
-  });
-   */
+export async function fetchTimelineImages(minImages: number, cursor?: string): Promise<LoadedPostResult> {
+  const sessionJson = sessionStorage.getItem('_session');
+  if (!sessionJson) {
+    return Promise.reject('Not logged in');
+  }
 
-  // TODO: Load session from storage
-  const savedSessionData: AtpSessionData = {
-    handle: '',
-    did: '',
-    accessJwt: '',
-    refreshJwt: '',
-  };
-  await agent.resumeSession(savedSessionData);
+  const savedSessionData: AtpSessionData = JSON.parse(sessionJson);
+
+  const agent = new BskyAgent({ service: BLUESKY_ENDPOINT });
+
+  const sessionResponse = await agent.resumeSession(savedSessionData);
+  const currentUserId = sessionResponse.data.did;
 
   const newPosts: BoardPost[] = [];
   let currentCursor = cursor;
 
   while (newPosts.length < minImages) {
     const newPostsResponse = await agent.getTimeline({
-      limit: 25,
-      cursor: cursor,
+      limit: 50,
+      cursor: currentCursor,
     });
-
-    console.log('Bluesky response:');
-    console.log(newPostsResponse);
 
     if (!newPostsResponse.success) {
       throw new Error('Error during fetching data from bluesky');
     } else {
+      const feed = newPostsResponse.data.feed;
+      if (!!currentCursor) {
+        feed.splice(0, 1);
+      }
       currentCursor = newPostsResponse.data.cursor;
-      for (let f of newPostsResponse.data.feed) {
-        console.log('FeedViewPost: ');
-        console.log(f);
-        if (f.post.embed && f.post.embed.$type == 'app.bsky.embed.images') {
-          for (let image of (f.post.embed! as AppBskyEmbedImages.View).images) {
+      for (let f of feed) {
+        const post = f.post;
+        if (AppBskyFeedPost.isRecord(post.record) && post.record.embed && !post.author.viewer?.muted) {
+          
+          if (AppBskyEmbedImages.isView(post.embed)) {
+            const boardImages: BoardImage[] = [];
+            for (let image of post.embed.images) {
+              boardImages.push({ thumb: image.thumb, full: image.fullsize });
+            }
+            // const cleanedURI = post.uri.replace("at://did:plc:", "at://did:plc:")
+            const cleanedURI = post.uri;
+            const rest = cleanedURI.substring(0, cleanedURI.lastIndexOf('/') + 1);
+            const last = cleanedURI.substring(cleanedURI.lastIndexOf('/') + 1, cleanedURI.length);
             const boardPost: BoardPost = {
-              id: f.post.cid,
-              cid: f.post.cid,
-              senderHandle: f.post.author.handle,
-              when: f.post.indexedAt,
-              thumbImage: image.thumb,
-              fullImage: image.fullsize,
-              postString: (f.post.embed.record as ViewRecord).value.toString() || '',
-              postUrl: f.post.uri,
-              likes: f.post.likeCount || 0,
-              liked: !!f.post.viewer?.like,
+              id: post.cid,
+              cid: post.cid,
+              senderHandle: post.author.handle,
+              senderName: post.author.displayName || post.author.handle,
+              senderAvatarUrl: post.author.avatar,
+              when: post.indexedAt,
+              images: boardImages,
+              postString: post.record.text || '',
+              postUrl: 'https://bsky.app/profile/' + post.author.handle + '/post/' + last,
+              likes: post.likeCount || 0,
+              liked: !!post.viewer?.like,
               comments: [], // TODO: Add
+              isOwn: post.author.did === currentUserId,
             };
+            newPosts.push(boardPost);
           }
         }
       }
@@ -71,16 +75,19 @@ async function fetchTimelineImages(minImages: number, cursor: string | undefined
   };
 }
 
-async function fetchLatestFeedImages(): Promise<BoardPost[]> {
+export async function fetchLatestFeedImages(): Promise<BoardPost[]> {
   // const agent = new BskyAgent({ service: 'https://example.com' });
   // await agent.resumeSession(savedSessionData);
   return [];
 }
 
-async function fetchLatestOwnImages(): Promise<BoardPost[]> {
+export async function fetchLatestOwnImages(): Promise<BoardPost[]> {
   // const agent = new BskyAgent({ service: 'https://example.com' });
   // await agent.resumeSession(savedSessionData);
 
   return [];
 }
 
+export async function likeImage() {
+
+}

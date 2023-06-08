@@ -9,14 +9,20 @@ export default function ImageDetails(props: { post: BoardPost, close: Function }
     <div className='font-mono text-black font-bold p-2 px-6 border-2 border-black mb-4 '>
       <div key={post.id}>
         <div>
-          <img
-            className='m-auto w-fit h-auto'
-            src={post.postImage!.imageUrl}
-            alt={post.postString}
-            onClick={() => {
-              props.close();
-            }}
-          />
+          {post.images.map((image, index) => {
+            return (
+              <img
+                key={index}
+                className='m-auto w-3/5 h-auto'
+                src={image.full}
+                alt={post.postString}
+                onClick={() => {
+                  props.close();
+                }} />
+            );
+          })}
+          {post.id}
+          {post.cid}
           {/* Initial Post box */}
           <PostBox className='text-2xl' post={post} isMain={true} />
         </div>

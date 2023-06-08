@@ -23,24 +23,33 @@ export default function PostBox(props: {
             <div>
               <p className='font-mono text-xs'>{new Date(post.when).toLocaleDateString()}</p>
               <p className='font-mono text-xs'>{new Date(post.when).toLocaleTimeString()}</p>
-              <a href={'#'} className='hover:text-violet-500 mr-1'>{post.senderHandle}:</a>
+              <a className='hover:text-violet-500 mr-1'
+                 href={'https://bsky.app/profile/' + post.senderHandle}
+                 target='_blank'>{post.senderName}:</a>
             </div>
 
             <div className='flex mx-2 mt-auto'>
-              <a href={'#'} className='hover:text-violet-500'>{post.postString}</a>
+              <a className='hover:text-violet-500'
+                 href={post.postUrl}
+                 target='_blank'
+              >{post.postString}</a>
             </div>
           </div>
         </div>
 
         <div className='m-auto'>
-          {!props.isMain && post.postImage &&
-            <img
-              className='m-auto w-auto h-full mx-auto my-2'
-              src={post.postImage!.imageUrl}
-              alt={post.postString}
-              content={'fill'}
-              style={{ maxHeight: '120px' }}
-            />
+          {!props.isMain && post.images && post.images.map((image, index) => {
+            return (
+              <img
+                key={index}
+                className='m-auto w-auto h-full mx-auto my-2'
+                src={image.thumb}
+                alt={post.postString}
+                content={'fill'}
+                style={{ maxHeight: '120px' }}
+              />
+            );
+          })
           }
         </div>
       </div>

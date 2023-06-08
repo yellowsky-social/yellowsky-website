@@ -1,36 +1,40 @@
 'use client';
-import React, { useState } from 'react';
+
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import LoginBox from '@/src/app/login-box';
+import { isLoggedIntoBluesky, logoutBluesky } from '@/src/app/services/bluesky-account';
+import { useRouter } from 'next/navigation';
 
-type LogoHeaderState = {
-  isLoggedIn: boolean
-}
+type LogoHeaderState = {}
 
-export default function Header({ isLoggedIn }: LogoHeaderState) {
+export default function Header({}: LogoHeaderState) {
   const [showLogin, toggleShowLogin] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  let router = useRouter();
 
-  const [isLoggedInState, toggleLogin] = useState(false);
+  useEffect(() => {
+    setIsLoggedIn(isLoggedIntoBluesky());
+  }, []);
 
-  const [isLoading, setLoading] = useState(false);
-
-  const handleLogin = (handle: string, password: string): boolean => {
-    console.log('Login ' + handle + ':' + password);
-
-    // toggleLogin(true);
-    setLoading(true);
-    toggleShowLogin(false);
-    return true;
-  };
+  useEffect(() => {
+    if (isLoggedIn) {
+      toggleShowLogin(false);
+    }
+  }, [isLoggedIn]);
 
   const logout = () => {
-    toggleLogin(false);
+    logoutBluesky().then(() => {
+      setIsLoggedIn(false);
+      alert('Logout successfully');
+      router.push('/about');
+    });
   };
 
   // bg-teal-500 p-6
   return (
     <nav
-      className='relative top-0 flex w-full items-center h-fit justify-between flex-wrap bg-yellow-400 px-6 py-2 border-dashed border-b-1 border-indigo-600 z-10'>
+      className='top-0 flex w-full items-center h-fit justify-between flex-wrap bg-yellow-400 px-6 py-2 z-10 border-b-4 border-black border-solid'>
       <a className='flex items-center flex-shrink-0 text-white mr-6' href='/'>
         <img
           className='relative my-auto mr-4 h-12'
@@ -59,7 +63,7 @@ export default function Header({ isLoggedIn }: LogoHeaderState) {
           </a>
         </div>
 
-        {isLoggedInState ?
+        {isLoggedIn ?
           <>
             <div className='text-sm lg:flex-grow'>
               <Link href='/imageboard'
@@ -68,22 +72,22 @@ export default function Header({ isLoggedIn }: LogoHeaderState) {
               </Link>
             </div>
             <div className='text-sm lg:flex-grow'>
-              <p onClick={() => {
+              <button onClick={() => {
                 logout();
               }}
-                 className='block mt-4 lg:inline-block lg:mt-0 hover:text-white mr-4 border-solid border-l-4 border-black pl-1 pr-3'>
+                      className='block mt-4 lg:inline-block lg:mt-0 hover:text-white mr-4 border-solid border-l-4 border-black pl-1 pr-3'>
                 Logout
-              </p>
+              </button>
             </div>
           </>
           :
           <div className='text-sm lg:flex-grow'>
-            <p onClick={() => {
+            <button onClick={() => {
               toggleShowLogin(!showLogin);
             }}
-               className='block mt-4 lg:inline-block lg:mt-0 hover:text-white border-solid border-l-4 border-black pl-1'>
+                    className='block mt-4 lg:inline-block lg:mt-0 hover:text-white border-solid border-l-4 border-black pl-1'>
               Login
-            </p>
+            </button>
           </div>
         }
 
@@ -93,7 +97,12 @@ export default function Header({ isLoggedIn }: LogoHeaderState) {
       </div>
 
       {showLogin &&
-        <LoginBox login={handleLogin} isLoading={isLoading} />
+        <LoginBox onLogin={() => {
+          setIsLoggedIn(true);
+          setTimeout(args => {
+            router.replace('/imageboard');
+          }, 500);
+        }} />
       }
     </nav>
   );
