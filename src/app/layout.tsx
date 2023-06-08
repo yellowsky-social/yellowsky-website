@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google';
 import React from 'react';
 import Favicon from '@/src/components/Favicon';
 import Footer from '@/src/app/footer';
+import Header from '@/src/app/header';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -23,10 +24,9 @@ export default function RootLayout({
       <Favicon />
     </head>
     <body className={inter.className}>
-    <main className='bg-yellow-400'>
-
+    <main className='bg-yellow-400 min-h-screen min-w-fit flex-auto'>
+      <Header />
       {children}
-
       <Footer />
     </main>
     </body>

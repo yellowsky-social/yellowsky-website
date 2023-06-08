@@ -1,12 +1,11 @@
-'use client';
 import React from 'react';
 
 export default function About() {
 
   return (
     <div
-      className='min-w-full h-fit m-auto max-w-prose pl-8 pr-8'>
-      <div className=''>
+      className='min-w-full m-auto max-w-prose pl-8 pr-8 bg-black mt-16'>
+      <div className='m-auto h-full'>
         <div className='flex font-black lg:text-8xl text-6xl w-fit mx-auto'>
           <h1
             className='flex bg-black p-5 pt-3 text-yellow-400 text-center border-8 border-yellow-400 hover:border-yellow-400 hover:text-black hover:bg-yellow-400'>yellow

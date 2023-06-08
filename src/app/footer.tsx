@@ -9,7 +9,7 @@ export default function Footer() {
      */
     <div
       className='fixed bottom-0 min-w-max p-4 bg-black w-full shadow-[0_35px_50px_100px_rgba(0,0,0,1.0)]'>
-      <div className='relative bottom-0 flex text-lg lg:text-xl gap-4 flex-nowrap'>
+      <div className='relative bottom-0 flex flex-nowrap text-lg lg:text-xl gap-4'>
         <a
           className='relative flex gap-2 w-fit font-black text-amber-50 hover:text-blue-300 pointer-events-auto'
           href='https://atproto.com'

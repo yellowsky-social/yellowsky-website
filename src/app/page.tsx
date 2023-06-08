@@ -6,10 +6,9 @@ const color = '#fddf19';
 export default function Page() {
 
   return (
-    <div className='flex min-h-screen w-full min-w-fit pb-24'>
+    <div className='min-h-full w-full min-w-fit'>
 
       <Content />
-
 
     </div>
   );
