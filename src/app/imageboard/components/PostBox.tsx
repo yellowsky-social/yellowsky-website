@@ -19,7 +19,7 @@ export default function PostBox(props: {
       <div
         className={'flex bg-red-400' + 'border-dashed ' + (props.isMain ? 'border-b-2' : 'border-b-2') + ' border-indigo-500'}>
         <div className='w-full my-2'>
-          <div className='flex'>
+          <div className='flex-auto'>
             <div>
               <p className='font-mono text-xs'>{new Date(post.when).toLocaleDateString()}</p>
               <p className='font-mono text-xs'>{new Date(post.when).toLocaleTimeString()}</p>
