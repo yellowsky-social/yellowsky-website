@@ -9,7 +9,7 @@ export default function CommentsBox(props: { posts: BoardPost[] }) {
       {posts.map((comment, index) => {
         return (
           <PostBox key={index}
-                   className=''
+                   className='text-xl'
                    post={comment}
                    isMain={false}
           />

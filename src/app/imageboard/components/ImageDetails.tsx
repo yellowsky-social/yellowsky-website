@@ -22,7 +22,7 @@ export default function ImageDetails(props: { post: BoardPost, close: Function }
             );
           })}
           {/* Initial Post box */}
-          <PostBox className='text-2xl' post={post} isMain={true} />
+          <PostBox className='text-xl' post={post} isMain={true} />
         </div>
 
         <div className='pl-8 pr-8'>
