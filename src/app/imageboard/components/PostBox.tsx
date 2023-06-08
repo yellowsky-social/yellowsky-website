@@ -28,7 +28,7 @@ export default function PostBox(props: {
                  target='_blank'>{post.senderName}:</a>
             </div>
 
-            <div className='flex mx-2 mt-auto'>
+            <div className='flex mx-2 mt-auto text-lg'>
               <a className='hover:text-violet-500'
                  href={post.postUrl}
                  target='_blank'
