@@ -6,14 +6,14 @@ import CommentsBox from '@/src/app/imageboard/components/CommentsBox';
 export default function ImageDetails(props: { post: BoardPost, close: Function }) {
   const post = props.post;
   return (
-    <div className='font-mono text-black font-bold p-2 px-6 border-2 border-black mb-4 '>
-      <div key={post.id}>
+    <div className='font-mono text-black font-bold p-2 px-2 lg:px-6 border-2 border-black mb-4 '>
+      <div key={post.cid}>
         <div>
           {post.images.map((image, index) => {
             return (
               <img
                 key={index}
-                className='m-auto w-3/5 h-auto'
+                className='m-auto w-full lg:w-3/5 h-auto cursor-zoom-out'
                 src={image.full}
                 alt={post.postString}
                 onClick={() => {

@@ -1,35 +1,23 @@
-'use client';
-
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import LoginBox from '@/src/app/login-box';
-import { isLoggedIntoBluesky, logoutBluesky } from '@/src/app/services/bluesky-account';
 import { useRouter } from 'next/navigation';
 
-type LogoHeaderState = {}
+type LogoHeaderState = {
+  isLoggedIn: boolean
+  login: (userHandle: string, password: string) => Promise<void>
+  logout: Function
+}
 
-export default function Header({}: LogoHeaderState) {
+export default function Header({ isLoggedIn, login, logout }: LogoHeaderState) {
   const [showLogin, toggleShowLogin] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   let router = useRouter();
-
-  useEffect(() => {
-    setIsLoggedIn(isLoggedIntoBluesky());
-  }, []);
 
   useEffect(() => {
     if (isLoggedIn) {
       toggleShowLogin(false);
     }
   }, [isLoggedIn]);
-
-  const logout = () => {
-    logoutBluesky().then(() => {
-      setIsLoggedIn(false);
-      alert('Logout successfully');
-      router.push('/about');
-    });
-  };
 
   // bg-teal-500 p-6
   return (
@@ -97,12 +85,7 @@ export default function Header({}: LogoHeaderState) {
       </div>
 
       {showLogin &&
-        <LoginBox onLogin={() => {
-          setIsLoggedIn(true);
-          setTimeout(args => {
-            router.replace('/imageboard');
-          }, 500);
-        }} />
+        <LoginBox login={login} />
       }
     </nav>
   );

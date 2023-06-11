@@ -4,11 +4,9 @@ export interface LoadedPostResult {
 }
 
 export interface BoardPost {
-  id: string;
+  uri: string;
   cid: string;
-  senderHandle: string;
-  senderName: string;
-  senderAvatarUrl?: string;
+  sender: BskyUser;
   when: string;
   images: BoardImage[];
   postString?: string;
@@ -17,6 +15,14 @@ export interface BoardPost {
   liked?: boolean;
   comments: BoardPost[];
   isOwn: boolean;
+}
+
+export interface BskyUser {
+  avatarUrl?: string;
+  handle: string;
+  did: string;
+  displayName: string;
+  followsCount?: number;
 }
 
 export interface BoardImage {

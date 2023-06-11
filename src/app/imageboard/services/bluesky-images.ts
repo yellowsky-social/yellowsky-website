@@ -1,71 +1,63 @@
 'use client';
-import { BoardImage, BoardPost, LoadedPostResult } from '@/src/app/imageboard/types/content-types';
+import { BoardPost, LoadedPostResult } from '@/src/app/imageboard/types/content-types';
 import { AppBskyEmbedImages, AppBskyFeedPost, AtpSessionData, BskyAgent } from '@atproto/api';
 import { BLUESKY_ENDPOINT } from '@/src/app/services/bluesky-account';
+import * as AppBskyFeedDefs from '@atproto/api/src/client/types/app/bsky/feed/defs';
+import { Headers } from '@atproto/xrpc';
+import { OutputSchema } from '@atproto/api/src/client/types/app/bsky/feed/getFeed';
+import { mapPostViewToBoardPost } from '@/src/app/imageboard/services/bluesky-mapper';
 
+const FEED_ID = 'at://did:plc:vpkhqolt662uhesyj6nxm7ys/app.bsky.feed.generator/allpics';
 
-export async function fetchTimelineImages(minImages: number, cursor?: string): Promise<LoadedPostResult> {
+export enum BoardType {
+  TIMELINE, FEED
+}
+
+export async function fetchImages(boardType: BoardType, minImages: number, cursor?: string): Promise<LoadedPostResult> {
+  console.log('Fetch images of board ' + boardType);
   const sessionJson = sessionStorage.getItem('_session');
   if (!sessionJson) {
     return Promise.reject('Not logged in');
   }
 
   const savedSessionData: AtpSessionData = JSON.parse(sessionJson);
-
   const agent = new BskyAgent({ service: BLUESKY_ENDPOINT });
 
   const sessionResponse = await agent.resumeSession(savedSessionData);
   const currentUserId = sessionResponse.data.did;
 
-  const newPosts: BoardPost[] = [];
+  let newPosts: BoardPost[] = [];
   let currentCursor = cursor;
 
   while (newPosts.length < minImages) {
-    const newPostsResponse = await agent.getTimeline({
-      limit: 50,
-      cursor: currentCursor,
-    });
+
+    let newPostsResponse: {
+      success: boolean
+      headers: Headers
+      data: OutputSchema
+    };
+
+    if (boardType === BoardType.FEED) {
+      newPostsResponse = await agent.app.bsky.feed.getFeed({
+        feed: FEED_ID,
+        cursor: currentCursor,
+        limit: minImages > 30 ? 30 : minImages,
+      });
+    } else if (boardType === BoardType.TIMELINE) {
+      newPostsResponse = await agent.getTimeline({
+        cursor: currentCursor,
+        limit: minImages > 30 ? 30 : minImages,
+      });
+    } else {
+      return Promise.reject('Invalid board');
+    }
 
     if (!newPostsResponse.success) {
       throw new Error('Error during fetching data from bluesky');
     } else {
-      const feed = newPostsResponse.data.feed;
-      if (!!currentCursor) {
-        feed.splice(0, 1);
-      }
+      let feed = newPostsResponse.data.feed;
       currentCursor = newPostsResponse.data.cursor;
-      for (let f of feed) {
-        const post = f.post;
-        if (AppBskyFeedPost.isRecord(post.record) && post.record.embed && !post.author.viewer?.muted) {
-          
-          if (AppBskyEmbedImages.isView(post.embed)) {
-            const boardImages: BoardImage[] = [];
-            for (let image of post.embed.images) {
-              boardImages.push({ thumb: image.thumb, full: image.fullsize });
-            }
-            // const cleanedURI = post.uri.replace("at://did:plc:", "at://did:plc:")
-            const cleanedURI = post.uri;
-            const rest = cleanedURI.substring(0, cleanedURI.lastIndexOf('/') + 1);
-            const last = cleanedURI.substring(cleanedURI.lastIndexOf('/') + 1, cleanedURI.length);
-            const boardPost: BoardPost = {
-              id: post.cid,
-              cid: post.cid,
-              senderHandle: post.author.handle,
-              senderName: post.author.displayName || post.author.handle,
-              senderAvatarUrl: post.author.avatar,
-              when: post.indexedAt,
-              images: boardImages,
-              postString: post.record.text || '',
-              postUrl: 'https://bsky.app/profile/' + post.author.handle + '/post/' + last,
-              likes: post.likeCount || 0,
-              liked: !!post.viewer?.like,
-              comments: [], // TODO: Add
-              isOwn: post.author.did === currentUserId,
-            };
-            newPosts.push(boardPost);
-          }
-        }
-      }
+      newPosts = [...newPosts, ...aggregateFeed(feed, currentUserId)];
     }
   }
 
@@ -90,4 +82,18 @@ export async function fetchLatestOwnImages(): Promise<BoardPost[]> {
 
 export async function likeImage() {
 
+}
+
+function aggregateFeed(feed: AppBskyFeedDefs.FeedViewPost[], currentUserId: string) {
+  let newPosts: BoardPost[] = [];
+  for (let f of feed) {
+    const post = f.post;
+    if (AppBskyFeedPost.isRecord(post.record) && post.record.embed && !post.author.viewer?.muted) {
+
+      if (AppBskyEmbedImages.isView(post.embed)) {
+        newPosts.push(mapPostViewToBoardPost(currentUserId, post));
+      }
+    }
+  }
+  return newPosts;
 }

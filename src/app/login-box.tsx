@@ -1,14 +1,11 @@
-'use client';
-
 import React, { useState } from 'react';
-import { loginBluesky } from '@/src/app/services/bluesky-account';
 import LoadingIcons from 'react-loading-icons';
 
 type LoginBoxProps = {
-  onLogin: Function
+  login: (userHandle: string, password: string) => Promise<void>
 }
 
-export default function LoginBox({ onLogin }: LoginBoxProps) {
+export default function LoginBox({ login }: LoginBoxProps) {
 
   const [userHandle, setUserHandle] = useState('');
   const [password, setPassword] = useState('');
@@ -47,12 +44,11 @@ export default function LoginBox({ onLogin }: LoginBoxProps) {
 
     setError('');
     setLoading(true);
-    loginBluesky(userHandle, password).then(() => {
+    login(userHandle, password).then(() => {
       setUserHandle('');
       setPassword('');
       setLoading(false);
       setError('');
-      onLogin();
     }).catch((error) => {
       setLoading(false);
       setError(error);

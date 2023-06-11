@@ -24,8 +24,8 @@ export default function PostBox(props: {
               <p className='font-mono text-xs'>{new Date(post.when).toLocaleDateString()}</p>
               <p className='font-mono text-xs'>{new Date(post.when).toLocaleTimeString()}</p>
               <a className='hover:text-violet-500 mr-1'
-                 href={'https://bsky.app/profile/' + post.senderHandle}
-                 target='_blank'>{post.senderName}:</a>
+                 href={'https://bsky.app/profile/' + post.sender.handle}
+                 target='_blank'>{post.sender.displayName}:</a>
             </div>
 
             <div className='flex mx-2 mt-auto text-lg'>
